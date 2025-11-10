@@ -1,65 +1,50 @@
-# QueryScope 🚀
+# 🌐 QueryScope
 
-**QueryScope** is a simple SQL query result viewer built to help beginners in **Node.js**, **SQL**, or **data analysis** easily run and visualize SQL queries in a web browser. It provides an interactive, user-friendly way to learn SQL and see query results without working in the console.
-
----
-
-## Features
-
-- Execute multiple SQL queries from a `.sql` file.
-- View results in a clean HTML table with sorting and search.
-- Styled web interface using **EJS** and optional CSS.
-- Beginner-friendly setup and code structure.
+**QueryScope** is a beginner-friendly **SQL Query Viewer** built with **Node.js**, **EJS**, and **PGlite**.
+It lets you **write, run, and visualize SQL queries** directly in your browser — perfect for learners exploring SQL and server-side JavaScript.
 
 ---
 
-## Prerequisites
+## ✨ What You Can Do
 
-- Node.js installed on your machine.
-- Basic knowledge of SQL and JavaScript.
+* ⚡ Run multiple SQL queries from a single `.sql` file
+* 📊 Instantly view query results in a web browser
+* 🧩 Learn how **Node.js** connects with a **database**
+* 🎨 See clean, styled results using EJS templates
+* 🔁 Edit your query file and refresh — no console work needed!
 
 ---
 
-## Getting Started
+## 🧠 Why QueryScope?
 
-Follow these steps to set up the project:
+This project was made to simplify SQL learning for beginners who prefer **visual feedback** instead of just command-line output.
+It’s a minimal yet complete example of a **backend + database + view** setup.
 
-### 1. Clone or create project folder
+---
+
+## 📦 Requirements
+
+* Node.js (v18 or higher recommended)
+* Basic understanding of SQL syntax
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Create your project folder
 
 ```bash
+mkdir QueryScope
 cd QueryScope
-````
+```
 
-### 2. Initialize npm package
+### 2️⃣ Initialize npm
 
 ```bash
 npm init -y
 ```
 
-This creates a basic `package.json` like this:
-
-```json
-{
-  "name": "QueryScope",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
-```
-
-### 3. Modify `package.json` for better setup
-
-* Add `"private": true` → prevents accidental publishing to npm.
-* Add `"type": "module"` → enables ES6 modules (`import/export`).
-* Remove unnecessary fields if desired (`version`, `description`, `main`, `keywords`, `author`, `license`).
-
-Example:
+Then open `package.json` and replace it with:
 
 ```json
 {
@@ -73,110 +58,126 @@ Example:
     "@electric-sql/pglite": "^0.2.17",
     "express": "^4.18.2",
     "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
 ```
 
 ---
 
-### 4. Install dependencies
+### 3️⃣ Install dependencies
 
 ```bash
-npm install @electric-sql/pglite express ejs
-npm install --save-dev nodemon
+npm install
 ```
 
-* **@electric-sql/pglite** → Lightweight SQL engine.
-* **Express** → Web server framework.
-* **EJS** → Templating engine for rendering HTML with dynamic data.
-* **Nodemon** → Automatically restarts server on code changes.
+This installs:
+
+* **@electric-sql/pglite** → lightweight embedded SQL database
+* **express** → minimal web server
+* **ejs** → HTML templating engine
+* **nodemon** → auto-reload on file changes
 
 ---
 
-### 5. Create folder structure
+### 4️⃣ Project Structure
 
-```text
+```bash
 QueryScope/
-│ index.js
-│ query.sql
-│ package.json
-│ package-lock.json
+│
+├── index.js          # Main server and SQL runner
+├── query.sql         # SQL queries go here
+├── package.json
 │
 ├── views/
 │   └── cars.ejs      # HTML template for displaying query results
 │
 └── public/
-    └── style.css     # Optional CSS for styling the web page
+    └── style.css     # Optional custom styling
 ```
-
-* `index.js` → Main server and SQL execution code.
-* `query.sql` → SQL queries to execute.
-* `views/cars.ejs` → EJS template for showing results.
-* `public/style.css` → Optional CSS for styling tables, input, etc.
 
 ---
 
-### 6. Run the project
+### 5️⃣ Run the Project
 
 ```bash
 npm start
 ```
 
-Open your browser at: `http://localhost:8000`
+Then visit 👉 [http://localhost:8000](http://localhost:8000)
 
-You’ll see a table displaying the results of your SQL queries with search and sorting functionality.
-
----
-
-## How It Works
-
-1. `index.js` loads the SQL queries from `query.sql`.
-2. Each query is executed using `@electric-sql/pglite`.
-3. Results are stored in an array and sent to the **EJS template**.
-4. `cars.ejs` dynamically renders the data as an HTML table.
-5. Optional JavaScript enables live search and column sorting.
+You’ll see your SQL query results beautifully displayed in a table.
 
 ---
 
-## Learning Benefits
+## 🧩 How It Works
 
-* Helps **Node.js beginners** understand how to work with databases.
-* Makes SQL queries visual and interactive.
-* Provides a hands-on approach for **data analysts** or students learning SQL.
+1. **`index.js`**
+
+   * Starts an Express server
+   * Loads data into a sample `cars` table
+   * Reads and executes queries from `query.sql`
+   * Filters out commented queries (`/* ... */` or `-- ...`)
+   * Passes valid query results to the EJS template
+
+2. **`cars.ejs`**
+
+   * Displays results in a dynamic HTML table
+   * Automatically adapts to any query (columns, values, etc.)
+
+3. **`style.css` (optional)**
+
+   * Adds color, hover effects, and dark theme support for a cleaner UI
 
 ---
 
-## Example Queries
+## 💡 Example Queries
 
 ```sql
--- Fetch top 5 red cars that are unsold
-SELECT brand, model, color, price
+/* Find unsold cars from the 60s (Dodge) or 70s (Ford/Triumph) */
+SELECT brand, model, year, sold
 FROM cars
-WHERE color LIKE '%red%' AND sold IS FALSE
-ORDER BY price
-LIMIT 5;
+WHERE ((brand = 'Dodge' AND year BETWEEN 1960 AND 1969)
+    OR (brand IN ('Ford', 'Triumph') AND year BETWEEN 1970 AND 1979))
+  AND sold IS NOT TRUE;
 
--- Sum total earnings from sold cars
+/* Get the total value of sold cars */
 SELECT SUM(price) AS total_earnings
 FROM cars
 WHERE sold IS TRUE;
 ```
 
-All results are dynamically displayed on the web page.
+---
+
+## 🧰 Learning Benefits
+
+* Understand **how SQL works inside Node.js**
+* See **query results instantly** in your browser
+* Learn **Express + EJS basics** with practical use
+* Perfect for **students, interns, and self-learners**
 
 ---
 
-## License
+## 🌟 Future Ideas
 
-This project is for **learning purposes**. Feel free to use and modify for educational projects.
-
-```
+* Add **live reload** when `query.sql` changes
+* Add **theme switch (light/dark)**
+* Add **filter/search bar** for results
+* Add **export as CSV** button
 
 ---
 
-If you want, I can also **write a ready-to-use `cars.ejs` template and search-sort.js** that works for **all types of queries**, including aggregated results like `SUM`, `COUNT`, etc., so beginners don’t get stuck.  
+## 📜 License
 
-Do you want me to do that next?
-```
+This project is open for **learning and experimentation**.
+Feel free to modify, extend, and share!
 
+---
 
+Would you like me to include a **ready-to-use `cars.ejs` + style.css** that:
+
+* auto-adjusts for any query result (different columns),
+* adds light/dark mode toggle, and
+* includes live search?
