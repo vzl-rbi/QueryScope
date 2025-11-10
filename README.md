@@ -1,6 +1,3 @@
-Here’s a polished, beginner-friendly **README** for your project “QueryScope”:
-
-````markdown
 # QueryScope 🚀
 
 **QueryScope** is a simple SQL query result viewer built to help beginners in **Node.js**, **SQL**, or **data analysis** easily run and visualize SQL queries in a web browser. It provides an interactive, user-friendly way to learn SQL and see query results without working in the console.
@@ -181,4 +178,5 @@ If you want, I can also **write a ready-to-use `cars.ejs` template and search-so
 
 Do you want me to do that next?
 ```
+
 
