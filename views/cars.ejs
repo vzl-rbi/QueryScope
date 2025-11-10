@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cars Inventory - Query Results</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/search-sort.js"></script>
+  </head>
+  <body>
+    <h1>📊 Cars Query Results Viewer</h1>
+
+    <% if (message) { %>
+    <p style="text-align: center; color: #bbb; font-style: italic">
+      <%= message %>
+    </p>
+    <% } else { %>
+    <input type="text" id="searchBox" placeholder="🔍 Search cars..." />
+
+    <% results.forEach((result, index) => { %>
+    <div class="query-block">
+      <h2>Query <%= index + 1 %>:</h2>
+      <pre><%= result.query %></pre>
+
+      <table id="carTable">
+        <thead>
+          <tr>
+            <% Object.keys(result.rows[0]).forEach(col => { %>
+            <th><%= col %></th>
+            <% }) %>
+          </tr>
+        </thead>
+        <tbody>
+          <% result.rows.forEach(row => { %>
+          <tr>
+            <% Object.values(row).forEach(value => { %>
+            <td><%= value %></td>
+            <% }) %>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% }) %> <% } %>
+  </body>
+</html>
