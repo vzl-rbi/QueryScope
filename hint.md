@@ -14,4 +14,19 @@
    │ cars.ejs
    └── public/
    │ style.css (optional)
-7. index.js edited
+7. # Updated folder 6
+   your-project/
+   ├── index.js
+   ├── config/
+   │ └── database.js
+   ├── data/
+   │ └── seedData.js
+   ├── routes/
+   │ └── cars.js
+   ├── utils/
+   │ └── queryLoader.js
+   ├── public/
+   │ └── (your static files)
+   ├── views/
+   │ └── cars.ejs
+   └── query.sql
