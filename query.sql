@@ -68,10 +68,10 @@
 		order the table by condition in descending order
 		and by price in ascending order
 */
--- SELECT brand, model, condition, price FROM cars
--- WHERE sold IS FALSE
--- AND condition != 5
--- ORDER BY condition DESC, price;
+SELECT brand, model, condition, price FROM cars
+WHERE sold IS FALSE
+AND condition != 5
+ORDER BY condition DESC, price;
 
 
 
@@ -85,8 +85,8 @@
 		order the results by the price in descending order
 		limit the results to 1
 */
--- SELECT brand, model, year, price FROM cars
--- ORDER BY price DESC LIMIT 1;
+SELECT brand, model, year, price FROM cars
+ORDER BY price DESC LIMIT 1;
 -- --✅ LIMIT 1 - returns only the single most expensive car
 /*
 	Select the brand, model, color and price from cars
@@ -95,10 +95,10 @@
 		order by price
 		limit the results to 5
 */
--- SELECT brand, model, color, price FROM cars
--- WHERE color LIKE '%red%'
--- AND sold IS FALSE
--- ORDER BY price LIMIT 5;
+SELECT brand, model, color, price FROM cars
+WHERE color LIKE '%red%'
+AND sold IS FALSE
+ORDER BY price LIMIT 5;
 
 
 
@@ -108,17 +108,17 @@
 	Count the number of cars
 		where sold is true
 */
--- SELECT COUNT(*) FROM cars
--- WHERE sold IS TRUE;
--- alternative
--- SELECT COUNT(*) AS total_sold FROM cars
--- WHERE sold IS TRUE;
+SELECT COUNT(*) FROM cars
+WHERE sold IS TRUE;
+alternative
+SELECT COUNT(*) AS total_sold FROM cars
+WHERE sold IS TRUE;
 /*
 	Sum the price of cars
 		where sold is true
 	Use the alias total_earnings in your output
 */
--- SELECT SUM(price) AS total_earnings FROM cars
--- WHERE sold IS TRUE;
+SELECT SUM(price) AS total_earnings FROM cars
+WHERE sold IS TRUE;
 
-SELECT * FROM cars;
+-- SELECT * FROM cars;
